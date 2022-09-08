@@ -33,12 +33,11 @@ vote.to_json
 end
 
 # ADD Candidate
-get "/add_candidate" do 
- candidate= Candidate.create(
+post "/add_votes" do 
+ candidate= Vote.create(
     voters_id: params[:voters_id],
     candidate_id: params[:candidate_id]
   )
-
   candidate.to_json
 end
 
@@ -57,7 +56,8 @@ get "/count_candidates_votes" do
 votes=Vote.count
 
 
-counts = {'votes' => votes}
+counts = {'votes' => "#{votes}"}
 counts.to_json
+
 end
 end
