@@ -25,13 +25,9 @@ class ApplicationController < Sinatra::Base
 end
 
 # GET ALL CANDIDATES
-get "/modify_option" do
-vote=Vote.find(params[:id])
-vote.update(
-  voters_id: params[:voters_id],
-  candidate_id: params[:candidate_id]
-)
-vote.to_json
+get "/get_all_candidates" do
+candidates=Party.all
+candidates.to_json(include: :votes)
 end
 
 
