@@ -10,25 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_08_161418) do
-
-  create_table "candidates", force: :cascade do |t|
-    t.string "name"
-    t.string "party_name"
-  end
+ActiveRecord::Schema.define(version: 2022_09_08_163102) do
 
   create_table "parties", force: :cascade do |t|
     t.string "party_name"
     t.string "candidate_name"
     t.string "profile_image"
     t.string "party_logo"
-  end
-
-  create_table "voters", force: :cascade do |t|
-    t.string "name"
-    t.string "age"
-    t.string "county"
-    t.string "gender"
   end
 
   create_table "votes", force: :cascade do |t|
