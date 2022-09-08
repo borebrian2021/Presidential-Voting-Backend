@@ -10,15 +10,15 @@ class ApplicationController < Sinatra::Base
       county: params[:county],
       gender: params[:gender]
     )
-    Voter.to_json
+    voter.to_json
   end
 
   # POST
   get "/vote" do
     vote=Vote.create(
-      voters_id:params[:voters_id]
-      candidate_id[:candidate_id]
-    )
+      voters_id: params[:voters_id],
+      candidate_id: params[:candidate_id]  )
+    vote.to_json
 
 end
 
@@ -26,31 +26,38 @@ end
 get "/modify_option" do
 vote=Vote.find(params[:id])
 vote.update(
-  voters_id:params[:voters_id]
-  candidate_id[:candidate_id]
+  voters_id: params[:voters_id],
+  candidate_id: params[:candidate_id]
 )
-
+vote.to_json
+end
 
 # ADD Candidate
 get "/add_candidate" do 
-  Candidate.create(
-    voters_id:params[:voters_id]
-    candidate_id :params[:candidate_id]
+ candidate= Candidate.create(
+    voters_id: params[:voters_id],
+    candidate_id: params[:candidate_id]
   )
+
+  candidate.to_json
 end
 
-
-get "/delete_candidate"
+get "/delete_candidate" do
 candidate = Candidate.find(params[:id])
 # delete the review
 candidate.destroy
 # send a response with the deleted review as JSON
 candidate.to_json
 
+end
 
 
+get "/count_candidates_votes" do
 
-t.string :name
-t.string :age
-t.string :county
-t.string :gender
+votes=Vote.count
+
+
+counts = {'votes' => votes}
+counts.to_json
+end
+end
