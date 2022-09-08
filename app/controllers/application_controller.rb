@@ -32,14 +32,20 @@ vote.update(
 
 
 # ADD Candidate
-get "add_candidate" do 
+get "/add_candidate" do 
   Candidate.create(
-    
+    voters_id:params[:voters_id]
+    candidate_id :params[:candidate_id]
   )
 end
 
 
-
+get "/delete_candidate"
+candidate = Candidate.find(params[:id])
+# delete the review
+candidate.destroy
+# send a response with the deleted review as JSON
+candidate.to_json
 
 
 
