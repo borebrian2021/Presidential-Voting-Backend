@@ -3,8 +3,8 @@ class ApplicationController < Sinatra::Base
   
   # Add your routes here
   # //POST
-  get "/addVoter" do
-    voter = Voter.create(
+  get "/addParty" do
+      voter = Voter.create(
       name: params[:name],
       age: params[:age],
       county: params[:county],
@@ -32,6 +32,7 @@ vote.update(
 vote.to_json
 end
 
+
 # ADD Candidate
 post "/add_votes" do 
  candidate= Vote.create(
@@ -41,23 +42,33 @@ post "/add_votes" do
   candidate.to_json
 end
 
-get "/delete_candidate" do
-candidate = Candidate.find(params[:id])
-# delete the review
-candidate.destroy
-# send a response with the deleted review as JSON
-candidate.to_json
+# get "/delete_candidate" do
+# candidate = Candidate.find(params[:id])
+# # delete the review
+# candidate.destroy
+# # send a response with the deleted review as JSON
+# candidate.to_json
 
-end
-
-
-get "/count_candidates_votes" do
-
-votes=Vote.count
+# end
 
 
-counts = {'votes' => "#{votes}"}
-counts.to_json
+# post "/add_candidates"
+# add_candidate=Candidate.create(name: "William Samoei Ruto", party_name: "Kenya Kwanza")
+# add_candidate=Candidate.create(name: "Raila Odinga", party_name: "Azimio")
+# add_candidate=Candidate.create(name: "George Wajakhoya", party_name: "Azimio")
 
-end
+# end
+
+# post "/count_candidates_votes" do
+
+ 
+
+
+#   add_candidate.save
+# # votes=Vote.all.group(:voters_id).count
+# candidate=Candidate.all.count
+# # merged = votes.merge(candidate)
+# counts = {'votes' => "#{candidate}"}
+# counts.to_json
+# end
 end
