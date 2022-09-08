@@ -3,14 +3,16 @@ class ApplicationController < Sinatra::Base
   
   # Add your routes here
   # //POST
-  get "/addParty" do
-      voter = Voter.create(
-      name: params[:name],
-      age: params[:age],
-      county: params[:county],
-      gender: params[:gender]
+
+
+  post "/addParty" do
+      party = Party.create(
+        party_name: params[:partyName],
+        candidate_name: params[:candidateName],
+        profile_image: params[:profileImage],
+        party_logo: params[:partyLogo]
     )
-    voter.to_json
+    party.to_json(include: :votes)
   end
 
   # POST
@@ -22,7 +24,7 @@ class ApplicationController < Sinatra::Base
 
 end
 
-# MODIFY VOTES
+# GET ALL CANDIDATES
 get "/modify_option" do
 vote=Vote.find(params[:id])
 vote.update(

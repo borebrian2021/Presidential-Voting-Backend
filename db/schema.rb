@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_08_163102) do
+ActiveRecord::Schema.define(version: 2022_09_08_165609) do
 
   create_table "parties", force: :cascade do |t|
     t.string "party_name"
@@ -20,8 +20,9 @@ ActiveRecord::Schema.define(version: 2022_09_08_163102) do
   end
 
   create_table "votes", force: :cascade do |t|
-    t.string "voters_id"
-    t.string "candidate_id"
+    t.integer "party_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
 end
