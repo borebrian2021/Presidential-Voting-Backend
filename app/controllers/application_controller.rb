@@ -1,5 +1,6 @@
 class ApplicationController < Sinatra::Base
   set :default_content_type, 'application/json'
+  require 'pry'
   
   # Add your routes here
   # //POST
@@ -15,13 +16,23 @@ class ApplicationController < Sinatra::Base
     party.to_json(include: :votes)
   end
 
-  # POST
-  get "/vote" do
+  # POST VOTE
+  post "/vote" do
+    # binding.pry
     vote=Vote.create(
-      voters_id: params[:voters_id],
-      candidate_id: params[:candidate_id]  )
-    vote.to_json
-
+      party_id: params[:candidate_id]
+    )
+    
+    count_parties=Party.count
+    
+    Party.all.each do |c|
+      if c.id == params[:candidate_id]
+      else
+        votes =Vote.where(:party_id==params[:candidate_id]).limit(1)
+        votes.destroy_all
+      end
+    end
+    vote
 end
 
 # GET ALL CANDIDATES
@@ -30,6 +41,13 @@ candidates=Party.all
 candidates.to_json(include: :votes)
 end
 
+# DELETE CANDIDATE
+delete "/delete_candidate/:id" do
+  party=Party.find(params[:id]);
+  party.destroy
+  party.to_json
+  end
+
 
 # ADD Candidate
 post "/add_votes" do 
@@ -37,36 +55,20 @@ post "/add_votes" do
     voters_id: params[:voters_id],
     candidate_id: params[:candidate_id]
   )
+
+
+  
   candidate.to_json
+
+
 end
 
-# get "/delete_candidate" do
-# candidate = Candidate.find(params[:id])
-# # delete the review
-# candidate.destroy
-# # send a response with the deleted review as JSON
-# candidate.to_json
 
-# end
+# VOTE UP
+post "/vote" do
+  vote=Vote.create(party_id:params[:id])
+  find=Party.find(params[:candidate_id])
+  find
+end
 
-
-# post "/add_candidates"
-# add_candidate=Candidate.create(name: "William Samoei Ruto", party_name: "Kenya Kwanza")
-# add_candidate=Candidate.create(name: "Raila Odinga", party_name: "Azimio")
-# add_candidate=Candidate.create(name: "George Wajakhoya", party_name: "Azimio")
-
-# end
-
-# post "/count_candidates_votes" do
-
- 
-
-
-#   add_candidate.save
-# # votes=Vote.all.group(:voters_id).count
-# candidate=Candidate.all.count
-# # merged = votes.merge(candidate)
-# counts = {'votes' => "#{candidate}"}
-# counts.to_json
-# end
 end

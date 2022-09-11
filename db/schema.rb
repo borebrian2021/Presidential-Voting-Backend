@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_08_165609) do
+ActiveRecord::Schema.define(version: 2022_09_11_122818) do
 
   create_table "parties", force: :cascade do |t|
     t.string "party_name"
@@ -19,10 +19,21 @@ ActiveRecord::Schema.define(version: 2022_09_08_165609) do
     t.string "party_logo"
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.integer "role"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "googleId"
+    t.string "img_url"
+  end
+
   create_table "votes", force: :cascade do |t|
     t.integer "party_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "voters_id"
   end
 
 end
