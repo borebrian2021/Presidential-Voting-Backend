@@ -17,22 +17,21 @@ end
 
   #GOOGLE SIGN IN OR SIGUP
   post "/sign_up_sign_in" do 
-    check_exists=User.find_by_Name(params[:google_id])
-    if check_exists
-    message={
-      message:"User already exists"
-      
-    }
-    check_exists
+    if User.where(:googleId => params[:googleId]).any?
+      message={
+        message:"User already exists"      
+      }
+    message.to_json
     else
       user =User.create(
-      name: params[:name],
-      email: params[:email],
-      role: params[:role],
-      googleId: params[:google_id],
-      img_url: params[:img_url] )
-      
-  
+        name: params[:name],
+        email: params[:email],
+        role: params[:role],
+        googleId: params[:googleId],
+        img_url: params[:img_url] )
+        user.to_json
+
+
   end 
   end
 
@@ -77,12 +76,7 @@ post "/add_votes" do
      voters_id: params[:voters_id],
      candidate_id: params[:candidate_id]
    )
- 
- 
-   
    candidate.to_json
- 
- 
  end
  
 # VOTE UP
