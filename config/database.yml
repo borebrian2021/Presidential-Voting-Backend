@@ -18,3 +18,6 @@ production:
   database: d2e4n1ln24u1kq
   user: vvuucrhkbgqhqm
   port: 5432
+  password: 6cedac31fd0eb8610ec7c9bf80d37ffae7c8ef662067597ff59c9a5d51b4bb81
+  
+  
