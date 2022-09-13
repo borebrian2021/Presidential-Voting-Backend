@@ -21,7 +21,7 @@ end
       message={
         message:"User already exists"      
       }
-    message.to_json
+    message.to_json(include: message)
     else
       user =User.create(
         name: params[:name],
@@ -38,6 +38,7 @@ end
   # POST VOTE
   post "/vote" do
     # binding.pry
+    
     vote=Vote.create(
       party_id: params[:candidate_id]
     )
@@ -57,6 +58,13 @@ get "/get_all_candidates" do
   candidates=Party.all
   candidates.to_json(include: :votes)
   end
+
+  # GET ALL CANDIDATES
+post "/account_details" do
+  account=User.where(:googleid =>params[:googleId])
+  account.to_json
+  end
+
 
   
 
